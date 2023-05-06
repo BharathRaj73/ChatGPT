@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const errorHandler = require("./middlewares/errorMiddleware");
+const errorHandler = require("./middelwares/errorMiddleware");
 
 //routes path
 const authRoutes = require("./routes/authRoutes");

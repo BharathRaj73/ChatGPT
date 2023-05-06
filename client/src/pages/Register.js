@@ -1,6 +1,7 @@
-import React from "react";
-import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
 import {
   Box,
   Typography,
@@ -11,36 +12,28 @@ import {
   Alert,
   Collapse,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const Register = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-
   //media
-  const isNotMobile = useMediaQuery("(min-width:1000px)");
-
-  //states
+  const isNotMobile = useMediaQuery("(min-width: 1000px)");
+  // states
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  //register control
+  //register ctrl
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/v1/auth/register", {
-        username,
-        email,
-        password,
-      });
-      toast.success("User Registered Successfully!");
+      await axios.post("/api/v1/auth/register", { username, email, password });
+      toast.success("User Register Successfully");
       navigate("/login");
     } catch (err) {
       console.log(error);
-      if (err.responsedata.error) {
+      if (err.response.data.error) {
         setError(err.response.data.error);
       } else if (err.message) {
         setError(err.message);
@@ -50,7 +43,6 @@ const Register = () => {
       }, 5000);
     }
   };
-
   return (
     <Box
       width={isNotMobile ? "40%" : "80%"}
@@ -61,47 +53,42 @@ const Register = () => {
       backgroundColor={theme.palette.background.alt}
     >
       <Collapse in={error}>
-        <Alert security="error" sx={{ mb: 2 }}>
+        <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>
       </Collapse>
       <form onSubmit={handleSubmit}>
         <Typography variant="h3">Sign Up</Typography>
         <TextField
-          label="Username"
+          label="username"
           required
           margin="normal"
           fullWidth
           value={username}
           onChange={(e) => {
-            {
-              setUsername(e.target.value);
-            }
+            setUsername(e.target.value);
           }}
         />
         <TextField
-          label="Email"
+          label="email"
+          type="email"
           required
           margin="normal"
           fullWidth
           value={email}
           onChange={(e) => {
-            {
-              setEmail(e.target.value);
-            }
+            setEmail(e.target.value);
           }}
         />
         <TextField
-          label="Password"
+          label="password"
           type="password"
           required
           margin="normal"
           fullWidth
           value={password}
           onChange={(e) => {
-            {
-              setPassword(e.target.value);
-            }
+            setPassword(e.target.value);
           }}
         />
         <Button
@@ -114,7 +101,7 @@ const Register = () => {
           Sign Up
         </Button>
         <Typography mt={2}>
-          Already have an account ?<br /> <Link to="/login">Please login</Link>
+          Already have an account ? <Link to="/login">Please Login</Link>
         </Typography>
       </form>
     </Box>

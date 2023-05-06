@@ -1,6 +1,6 @@
-const errorHandler = require("../middlewares/errorMiddleware");
+const errorHandler = require("../middelwares/errorMiddleware");
 const userModel = require("../models/userModel");
-const errorResponse = require("../utils/errorResponse");
+const errorResponse = require("../utils/errroResponse");
 
 // JWT TOKEN
 exports.sendToken = (user, statusCode, res) => {
@@ -31,6 +31,7 @@ exports.registerContoller = async (req, res, next) => {
 //LOGIN
 exports.loginController = async (req, res, next) => {
   try {
+    console.log("Trying to login");
     const { email, password } = req.body;
     //validation
     if (!email || !password) {
@@ -47,6 +48,7 @@ exports.loginController = async (req, res, next) => {
     //res
     this.sendToken(user, 200, res);
   } catch (error) {
+    console.log("login error");
     console.log(error);
     next(error);
   }

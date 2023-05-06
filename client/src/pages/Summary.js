@@ -61,7 +61,7 @@ const Summary = () => {
         <Typography variant="h3">Summarize Text</Typography>
 
         <TextField
-          placeholder="Add Your Text"
+          placeholder="add your text"
           type="text"
           multiline={true}
           required
@@ -118,11 +118,11 @@ const Summary = () => {
             color="natural.main"
             sx={{
               textAlign: "center",
-              verticalAlign: "middle",
+              verticalAlign: "middel",
               lineHeight: "450px",
             }}
           >
-            Summary will Appear Here
+            Summary Will Apprea Here
           </Typography>
         </Card>
       )}

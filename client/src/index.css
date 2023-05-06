@@ -18,3 +18,7 @@ a {
 a:hover {
   color: black !important;
 }
+
+a.active {
+  color: #57d96d !important;
+}

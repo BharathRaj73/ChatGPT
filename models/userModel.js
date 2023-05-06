@@ -7,16 +7,17 @@ const cookie = require("cookie");
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, "UserName is required!"],
+    required: [true, "USername is Required"],
   },
   email: {
     type: String,
-    required: [true, "Email is required!"],
+    required: [true, "Email is required"],
+    unique: true,
   },
   password: {
     type: String,
-    require: [true, "Password is required!"],
-    minlength: [6, "Password should be atleast 6 characters"],
+    required: [true, "Password is required"],
+    minlength: [6, "Password length should be 6 character long"],
   },
   customerId: {
     type: String,
@@ -39,23 +40,22 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-//matched password
-userSchema.methods.meatchPassword = async function (password) {
+//match password
+userSchema.methods.matchPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
 //SIGN TOKEN
 userSchema.methods.getSignedToken = function (res) {
-  const accessToken = JWT.sign(
+  const acccesToken = JWT.sign(
     { id: this._id },
     process.env.JWT_ACCESS_SECRET,
     { expiresIn: process.env.JWT_ACCESS_EXPIREIN }
   );
-
   const refreshToken = JWT.sign(
     { id: this._id },
     process.env.JWT_REFRESH_TOKEN,
-    { expiresIn: process.env.JWT_REFRESH_EXPIREIN }
+    { expiresIn: process.env.JWT_REFRESH_EXIPREIN }
   );
   res.cookie("refreshToken", `${refreshToken}`, {
     maxAge: 86400 * 7000,
