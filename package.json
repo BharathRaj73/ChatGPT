@@ -25,6 +25,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.5",
     "morgan": "^1.10.0",
-    "openai": "^3.2.1"
+    "openai": "^3.2.1",
+    "react-hot-toast": "^2.4.1"
   }
 }

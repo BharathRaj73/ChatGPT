@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Link, Typography,useTheme } from "@mui/material";
 
-
 const Navbar = () => {
   const theme = useTheme()
+  const loggedIn = JSON.parse(localStorage.getItem('authToken'))
   return (
     <Box
       width={"100%"}
