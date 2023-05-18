@@ -5,6 +5,7 @@ const {
   logoutController,
 } = require("../controllers/authController");
 
+
 //router object
 const router = express.Router();
 
